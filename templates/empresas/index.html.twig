@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Empresas index{% endblock %}
+
+{% block body %}
+    <h1>Empresas index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Direccion</th>
+                <th>FechaRegistro</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for empresa in empresas %}
+            <tr>
+                <td>{{ empresa.id }}</td>
+                <td>{{ empresa.Nombre }}</td>
+                <td>{{ empresa.Direccion }}</td>
+                <td>{{ empresa.FechaRegistro ? empresa.FechaRegistro|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('empresas_show', {'id': empresa.id}) }}">show</a>
+                    <a href="{{ path('empresas_edit', {'id': empresa.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('empresas_new') }}">Create new</a>
+{% endblock %}

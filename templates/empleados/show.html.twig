@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Empleados{% endblock %}
+
+{% block body %}
+    <h1>Empleados</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ empleado.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ empleado.Nombre }}</td>
+            </tr>
+            <tr>
+                <th>Apellidos</th>
+                <td>{{ empleado.Apellidos }}</td>
+            </tr>
+            <tr>
+                <th>NumeroHijos</th>
+                <td>{{ empleado.NumeroHijos }}</td>
+            </tr>
+            <tr>
+                <th>FechaNacimiento</th>
+                <td>{{ empleado.FechaNacimiento ? empleado.FechaNacimiento|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>EstadoCivil</th>
+                <td>{{ empleado.EstadoCivil ? empleado.EstadoCivil|join(', ') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Activo</th>
+                <td>{{ empleado.Activo ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Imagen</th>
+                <td><img src="{{ asset('uploads/brochures/' ~ empleado.Imagen) }}"></img></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('empleados_index') }}">back to list</a>
+
+    <a href="{{ path('empleados_edit', {'id': empleado.id}) }}">edit</a>
+
+    {{ include('empleados/_delete_form.html.twig') }}
+{% endblock %}

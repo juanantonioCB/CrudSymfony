@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Empleados index{% endblock %}
+
+{% block body %}
+    <h1>Empleados index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>NumeroHijos</th>
+                <th>FechaNacimiento</th>
+                <th>EstadoCivil</th>
+                <th>Activo</th>
+                <th>Imagen</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for empleado in empleados %}
+            <tr>
+                <td>{{ empleado.id }}</td>
+                <td>{{ empleado.Nombre }}</td>
+                <td>{{ empleado.Apellidos }}</td>
+                <td>{{ empleado.NumeroHijos }}</td>
+                <td>{{ empleado.FechaNacimiento ? empleado.FechaNacimiento|date('Y-m-d') : '' }}</td>
+                <td>{{ empleado.EstadoCivil ? empleado.EstadoCivil|join(', ') : '' }}</td>
+                <td>{{ empleado.Activo ? 'Yes' : 'No' }}</td>
+                <td>{{ empleado.Imagen }}</td>
+                <td>
+                    <a href="{{ path('empleados_show', {'id': empleado.id}) }}">show</a>
+                    <a href="{{ path('empleados_edit', {'id': empleado.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('empleados_new') }}">Create new</a>
+{% endblock %}
