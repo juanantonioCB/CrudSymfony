@@ -69,6 +69,12 @@ class Empleados
      */
     private $Imagen;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Empresas", inversedBy="empleados")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Empresa;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,6 +160,18 @@ class Empleados
     public function setImagen(?string $Imagen): self
     {
         $this->Imagen = $Imagen;
+
+        return $this;
+    }
+
+    public function getEmpresa(): ?Empresas
+    {
+        return $this->Empresa;
+    }
+
+    public function setEmpresa(?Empresas $Empresa): self
+    {
+        $this->Empresa = $Empresa;
 
         return $this;
     }

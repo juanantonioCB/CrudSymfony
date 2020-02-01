@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -46,6 +48,16 @@ class Empresas
      */
     private $FechaRegistro;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Empleados", mappedBy="Empresa")
+     */
+    private $empleados;
+
+    public function __construct()
+    {
+        $this->empleados = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -83,6 +95,37 @@ class Empresas
     public function setFechaRegistro(?\DateTimeInterface $FechaRegistro): self
     {
         $this->FechaRegistro = $FechaRegistro;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Empleados[]
+     */
+    public function getEmpleados(): Collection
+    {
+        return $this->empleados;
+    }
+
+    public function addEmpleado(Empleados $empleado): self
+    {
+        if (!$this->empleados->contains($empleado)) {
+            $this->empleados[] = $empleado;
+            $empleado->setEmpresa($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmpleado(Empleados $empleado): self
+    {
+        if ($this->empleados->contains($empleado)) {
+            $this->empleados->removeElement($empleado);
+            // set the owning side to null (unless already changed)
+            if ($empleado->getEmpresa() === $this) {
+                $empleado->setEmpresa(null);
+            }
+        }
 
         return $this;
     }

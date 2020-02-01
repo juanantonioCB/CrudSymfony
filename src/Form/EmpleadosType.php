@@ -12,6 +12,9 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
+use App\Entity\Empresas;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 
 class EmpleadosType extends AbstractType
 {
@@ -54,6 +57,19 @@ class EmpleadosType extends AbstractType
                     ])
                 ],
             ])
+            ->add('Empresa', EntityType::class, array(
+                // looks for choices from this entity
+                'class' => Empresas::class,
+
+                // uses the Product.Name property as the visible option string
+                'choice_label' => 'Nombre',
+
+                // used to render a select box, check boxes or radios
+                'multiple' => false,
+
+                // used to send propierties to HTML
+                'attr' => array('class' => 'form-control')
+            ))
         ;
     }
 
