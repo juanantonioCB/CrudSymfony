@@ -5,49 +5,58 @@
 {% block body %}
     <h1>Empleados</h1>
 
-    <table class="table">
+    <a href="{{ path('empleados_index') }}">
+        <button type="button" class="btn btn-light">Volver Atrás</button>
+    </a>
+
+    <a href="{{ path('empleados_edit', {'id': empleado.id}) }}">
+        <button type="button" class="btn btn-secondary float-right">Editar</button>
+    </a>
+    <br/><br/>
+
+
+    <table class="table table-hover table-striped">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ empleado.id }}</td>
-            </tr>
-            <tr>
-                <th>Nombre</th>
-                <td>{{ empleado.Nombre }}</td>
-            </tr>
-            <tr>
-                <th>Apellidos</th>
-                <td>{{ empleado.Apellidos }}</td>
-            </tr>
-            <tr>
-                <th>NumeroHijos</th>
-                <td>{{ empleado.NumeroHijos }}</td>
-            </tr>
-            <tr>
-                <th>FechaNacimiento</th>
-                <td>{{ empleado.FechaNacimiento ? empleado.FechaNacimiento|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>EstadoCivil</th>
-                <td>{{ empleado.EstadoCivil ? empleado.EstadoCivil|join(', ') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Activo</th>
-                <td>{{ empleado.Activo ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Imagen</th>
-                <td><img src="{{ asset('uploads/brochures/' ~ empleado.Imagen) }}"></img></td>
-            </tr>
         <tr>
+            <th></th>
+            <td><img src="{{ asset('uploads/brochures/' ~ empleado.Imagen) }}"></img></td>
+        </tr>
+        <tr>
+            <th scope="col">Id</th>
+            <td>{{ empleado.id }}</td>
+        </tr>
+        <tr>
+            <th>Nombre</th>
+            <td>{{ empleado.Nombre }}</td>
+        </tr>
+        <tr>
+            <th>Apellidos</th>
+            <td>{{ empleado.Apellidos }}</td>
+        </tr>
+        <tr>
+            <th>Numero de Hijos</th>
+            <td>{{ empleado.NumeroHijos }}</td>
+        </tr>
+        <tr>
+            <th>Fecha de Nacimiento</th>
+            <td>{{ empleado.FechaNacimiento ? empleado.FechaNacimiento|date('Y-m-d') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Estado Civil</th>
+            <td>{{ empleado.EstadoCivil ? empleado.EstadoCivil|join(', ') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Activo</th>
+            <td>{{ empleado.Activo ? 'Yes' : 'No' }}</td>
+        </tr>
+        <tr>
+            <th>Empresa</th>
             <td>{{ empleado.empresa.Nombre }}</td>
         </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('empleados_index') }}">back to list</a>
 
-    <a href="{{ path('empleados_edit', {'id': empleado.id}) }}">edit</a>
 
     {{ include('empleados/_delete_form.html.twig') }}
 {% endblock %}

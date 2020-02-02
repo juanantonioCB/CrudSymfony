@@ -1,47 +1,60 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Empleados index{% endblock %}
+{% block title %}Listado de Empleados{% endblock %}
 
 {% block body %}
-    <h1>Empleados index</h1>
-
-    <table class="table">
+    <h1>Empleados</h1>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <a href="{{ path('empleados_new') }}">
+            <button type="button" class="btn btn-success">Añadir Empleado</button>
+        </a>
+    {% endif %}
+    <br/><br/>
+    <table class="table table-sm table-hover">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>NumeroHijos</th>
-                <th>FechaNacimiento</th>
-                <th>EstadoCivil</th>
-                <th>Activo</th>
-                <th>Imagen</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Hijos</th>
+            <th>Fecha Nacimiento</th>
+            <th>Estado Civil</th>
+            <th>Activo</th>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <th></th>
+            {% endif %}
+
+        </tr>
         </thead>
         <tbody>
         {% for empleado in empleados %}
-            <tr>
-                <td>{{ empleado.id }}</td>
-                <td>{{ empleado.Nombre }}</td>
-                <td>{{ empleado.Apellidos }}</td>
-                <td>{{ empleado.NumeroHijos }}</td>
-                <td>{{ empleado.FechaNacimiento ? empleado.FechaNacimiento|date('Y-m-d') : '' }}</td>
-                <td>{{ empleado.EstadoCivil ? empleado.EstadoCivil|join(', ') : '' }}</td>
-                <td>{{ empleado.Activo ? 'Yes' : 'No' }}</td>
-                <td>{{ empleado.Imagen }}</td>
+            {% if empleado.getActivo() %}
+                <tr class="table-success">
+            {% else %}
+                <tr class="table-danger">
+            {% endif %}
+            <td>{{ empleado.Nombre }}</td>
+            <td>{{ empleado.Apellidos }}</td>
+            <td>{{ empleado.NumeroHijos }}</td>
+            <td>{{ empleado.FechaNacimiento ? empleado.FechaNacimiento|date('Y-m-d') : '' }}</td>
+            <td>{{ empleado.EstadoCivil ? empleado.EstadoCivil|join(', ') : '' }}</td>
+            <td>{{ empleado.Activo ? 'Si' : 'No' }}</td>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <td>
-                    <a href="{{ path('empleados_show', {'id': empleado.id}) }}">show</a>
-                    <a href="{{ path('empleados_edit', {'id': empleado.id}) }}">edit</a>
+                    <a href="{{ path('empleados_show', {'id': empleado.id}) }}"><img
+                                src="{{ asset('img/ver.png') }}"/></a></td>
+                <td>
+                    <a href="{{ path('empleados_edit', {'id': empleado.id}) }}"><img
+                                src="{{ asset('img/editar.png') }}"/></a>
                 </td>
+            {% endif %}
+
             </tr>
         {% else %}
             <tr>
-                <td colspan="9">no records found</td>
+                <td colspan="9">No hay empleados</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('empleados_new') }}">Create new</a>
 {% endblock %}

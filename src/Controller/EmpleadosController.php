@@ -27,6 +27,16 @@ class EmpleadosController extends AbstractController
     }
 
     /**
+     * @Route("/", name="empleados_getCount", methods={"GET"})
+     */
+    public function getCount(EmpleadosRepository $empleadosRepository): Response
+    {
+        return $this->render('base.html.twig', [
+            'getCount' => $empleadosRepository->getCount(),
+        ]);
+    }
+
+    /**
      * @Route("/new", name="empleados_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
@@ -87,6 +97,8 @@ class EmpleadosController extends AbstractController
 
             return $this->redirectToRoute('empleados_index');
         }
+
+
 
         return $this->render('empleados/edit.html.twig', [
             'empleado' => $empleado,

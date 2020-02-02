@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Empresas;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -14,7 +15,10 @@ class EmpresasType extends AbstractType
         $builder
             ->add('Nombre', TextType::class)
             ->add('Direccion', TextType::class)
-            ->add('FechaRegistro')
+            ->add('FechaRegistro', DateType::Class, array(
+                'widget' => 'choice',
+                'years' => range(date('Y'), date('Y') - 100),
+            ))
         ;
     }
 

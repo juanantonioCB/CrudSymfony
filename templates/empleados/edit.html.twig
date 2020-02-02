@@ -7,7 +7,7 @@
 
     {{ include('empleados/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('empleados_index') }}">back to list</a>
+    <a href="{{ path('empleados_index') }}"><button type="button" class="btn btn-light">Volver Atrás</button></a>
 
     {{ include('empleados/_delete_form.html.twig') }}
 {% endblock %}

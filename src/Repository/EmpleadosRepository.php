@@ -19,6 +19,17 @@ class EmpleadosRepository extends ServiceEntityRepository
         parent::__construct($registry, Empleados::class);
     }
 
+    public function getCount(): int
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT COUNT * FROM AppBundle:Empleados e'
+            )
+            ->getResult();
+    }
+
+
+
     // /**
     //  * @return Empleados[] Returns an array of Empleados objects
     //  */

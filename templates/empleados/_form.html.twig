@@ -3,5 +3,5 @@
 {% if empleado.Imagen %}
     <img src="{{ asset('uploads/brochures/' ~ empleado.Imagen) }}"></img>
 {% endif %}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <button class="btn btn-success">{{ button_label|default('Guardar') }}</button>
 {{ form_end(form) }}

@@ -5,30 +5,35 @@
 {% block body %}
     <h1>Empresas</h1>
 
-    <table class="table">
+    <a href="{{ path('empresas_index') }}">
+        <button type="button" class="btn btn-light">Volver Atrás</button>
+    </a>
+
+    <a href="{{ path('empresas_edit', {'id': empresa.id}) }}">
+        <button type="button" class="btn btn-success">Editar</button>
+    </a>
+    <br/><br/>
+    <table class="table table-hover table-striped">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ empresa.id }}</td>
-            </tr>
-            <tr>
-                <th>Nombre</th>
-                <td>{{ empresa.Nombre }}</td>
-            </tr>
-            <tr>
-                <th>Direccion</th>
-                <td>{{ empresa.Direccion }}</td>
-            </tr>
-            <tr>
-                <th>FechaRegistro</th>
-                <td>{{ empresa.FechaRegistro ? empresa.FechaRegistro|date('Y-m-d') : '' }}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ empresa.id }}</td>
+        </tr>
+        <tr>
+            <th>Nombre</th>
+            <td>{{ empresa.Nombre }}</td>
+        </tr>
+        <tr>
+            <th>Dirección</th>
+            <td>{{ empresa.Direccion }}</td>
+        </tr>
+        <tr>
+            <th>Fecha Registro</th>
+            <td>{{ empresa.FechaRegistro ? empresa.FechaRegistro|date('Y-m-d') : '' }}</td>
+        </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('empresas_index') }}">back to list</a>
-
-    <a href="{{ path('empresas_edit', {'id': empresa.id}) }}">edit</a>
 
     {{ include('empresas/_delete_form.html.twig') }}
 {% endblock %}

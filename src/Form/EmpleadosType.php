@@ -3,17 +3,16 @@
 namespace App\Form;
 
 use App\Entity\Empleados;
-use Doctrine\DBAL\Types\TextType;
-use phpDocumentor\Reflection\Types\Collection;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
 use App\Entity\Empresas;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 
 class EmpleadosType extends AbstractType
@@ -24,16 +23,16 @@ class EmpleadosType extends AbstractType
             ->add('Nombre')
             ->add('Apellidos')
             ->add('NumeroHijos')
-            ->add('FechaNacimiento')
-            ->add('EstadoCivil', CollectionType::class, [
-                'entry_type'   => ChoiceType::class,
-                'entry_options'  => [
-                    'choices'  => [
-                        'Nashville' => 'nashville',
-                        'Paris'     => 'paris',
-                        'Berlin'    => 'berlin',
-                        'London'    => 'london',
-                    ],
+            ->add('FechaNacimiento', DateType::Class, array(
+                'widget' => 'choice',
+                'years' => range(date('Y'), date('Y') - 100),
+            ))
+            ->add('EstadoCivil', ChoiceType::class, [
+                'choices' => [
+                    'Soltero' => 'Soltero',
+                    'Casado' => 'Casado',
+                    'Divorciado' => 'Divorciado',
+                    'Viudo' => 'Viudo',
                 ],
             ])
             ->add('Activo')
@@ -69,8 +68,7 @@ class EmpleadosType extends AbstractType
 
                 // used to send propierties to HTML
                 'attr' => array('class' => 'form-control')
-            ))
-        ;
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

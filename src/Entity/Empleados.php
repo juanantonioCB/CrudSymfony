@@ -32,7 +32,7 @@ class Empleados
     /**
      * @Assert\NotBlank
      * @Assert\Length(
-     *      min = 2,
+     *      min = 10,
      *      max = 255,
      *      minMessage = "Los apellidos deben tener como mínimo {{ limit }} caracteres",
      *      maxMessage = "Los apellidos deben tener como máximo {{ limit }} caracteres"
@@ -55,9 +55,9 @@ class Empleados
     private $FechaNacimiento;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="string")
      */
-    private $EstadoCivil = [];
+    private $EstadoCivil;
 
     /**
      * @ORM\Column(type="boolean")
@@ -70,6 +70,7 @@ class Empleados
     private $Imagen;
 
     /**
+     * @Assert\NotBlank(message="El empleado debe tener una empresa seleccionada")
      * @ORM\ManyToOne(targetEntity="App\Entity\Empresas", inversedBy="empleados")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -128,12 +129,12 @@ class Empleados
         return $this;
     }
 
-    public function getEstadoCivil(): ?array
+    public function getEstadoCivil(): ?string
     {
         return $this->EstadoCivil;
     }
 
-    public function setEstadoCivil(array $EstadoCivil): self
+    public function setEstadoCivil(string $EstadoCivil): self
     {
         $this->EstadoCivil = $EstadoCivil;
 
