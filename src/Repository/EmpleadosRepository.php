@@ -28,6 +28,14 @@ class EmpleadosRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function countAll()
+    {
+        return $this->createQueryBuilder('p')
+            ->select('count(p.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
 
 
     // /**

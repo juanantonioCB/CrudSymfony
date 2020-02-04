@@ -19,6 +19,14 @@ class EmpresasRepository extends ServiceEntityRepository
         parent::__construct($registry, Empresas::class);
     }
 
+    public function countAll()
+    {
+        return $this->createQueryBuilder('p')
+            ->select('count(p.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     // /**
     //  * @return Empresas[] Returns an array of Empresas objects
     //  */

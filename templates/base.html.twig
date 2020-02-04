@@ -18,13 +18,14 @@
     <div class="row">
 
         <div class="col">
-            <p>Columna 1</p>
             {% block body %}{% endblock %}
         </div>
         <div class="col">
-            <p>Columna 2</p>
+            <h2>Resumen</h2>
+            <p>Hay {{  render(controller('App\\Controller\\EmpresasController::getNumeroEmpresas')) }} empresas</p>
+            <p>Hay {{  render(controller('App\\Controller\\EmpleadosController::getNumeroEmpleados')) }} empleados</p>
             {% block sidebar %}{% endblock %}
-            
+
         </div>
     </div>
 </div>

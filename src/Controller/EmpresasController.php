@@ -91,4 +91,10 @@ class EmpresasController extends AbstractController
 
         return $this->redirectToRoute('empresas_index');
     }
+
+    public function getNumeroEmpresas(EmpresasRepository $empresasRepository){
+        return $this->render('empresas/_numero.html.twig', [
+            'numeroEmpresas' => $empresasRepository->countAll(),
+        ]);
+    }
 }

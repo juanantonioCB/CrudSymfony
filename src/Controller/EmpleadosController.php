@@ -119,4 +119,10 @@ class EmpleadosController extends AbstractController
 
         return $this->redirectToRoute('empleados_index');
     }
+
+    public function getNumeroEmpleados(EmpleadosRepository $empleadosRepository){
+        return $this->render('empleados/_numero.html.twig', [
+            'numeroEmpleados' => $empleadosRepository->countAll(),
+        ]);
+    }
 }
